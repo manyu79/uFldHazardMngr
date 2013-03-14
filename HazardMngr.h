@@ -68,7 +68,6 @@ class HazardMngr : public AppCastingMOOSApp
  private: // State variables
    bool   m_sensor_config_requested;
    bool   m_sensor_config_set;
-   bool   m_master; 
    bool   m_slave_report_received; 
 
    unsigned int m_sensor_config_reqs;

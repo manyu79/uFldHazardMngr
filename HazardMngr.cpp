@@ -377,10 +377,10 @@ void HazardMngr::sendReport()
   int start_time=MOOSTime(); 
   while((MOOSTime()-start_time)<45){
     if(!m_slave_report_received){
-      parseIncomingReport(m_slave_report); 
       break; 
     }
   }
+  parseIncomingReport(m_slave_report); 
   handleMailReportRequest(); 
 }
 
@@ -388,7 +388,21 @@ void HazardMngr::sendReport()
 //--------------------------------------------------------------------
 // Procedure: parseIncomingReport() (from slave)
 
-void HazardMngr::parseIncomingReport(string val){
-  cout<<"bite my shiny ass"<<endl; 
+void HazardMngr::parseIncomingReport(string report){
+  vector<string> svec;
+  vector<string> repvec = parseString(report, '#');
+  for (int i=2;i<repvec.size();i++){
+    cout << repvec[i] << endl;
+    svec = parseString(repvec[i], ',');
+    for (int j=0;j<svec.size();j++){
+      biteString(svec[j],'=');
+    }
+    XYHazard cheesesteak;
+    cheesesteak.setX(strtod(svec[0].c_str(),NULL));
+    cheesesteak.setX(strtod(svec[1].c_str(),NULL));
+    cheesesteak.setLabel(svec[2]);
+    if (!m_hazard_set.hasHazard(svec[2])) m_hazard_set.addHazard(cheesesteak);
+  }
+
   return; 
 }
