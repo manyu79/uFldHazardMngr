@@ -88,11 +88,13 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
       handleMailReportRequest();
     
     else if(key == "TIME_OUT"){
-      if (!m_master){
-	syncToMaster(); 
+      if(sval = "true"){
+	if (!m_master){
+	  syncToMaster(); 
+	}
+	else
+	  sendReport(); 
       }
-      else
-	sendReport(); 
     } 
     else if(key == "SLAVE_REPORT"){
       m_slave_report = sval; 
@@ -376,7 +378,7 @@ void HazardMngr::sendReport()
 {
   int start_time=MOOSTime(); 
   while((MOOSTime()-start_time)<45){
-    if(!m_slave_report_received){
+    if(m_slave_report_received){
       break; 
     }
   }
