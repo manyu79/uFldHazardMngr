@@ -34,6 +34,7 @@ using namespace std;
 HazardMngr::HazardMngr()
 {
   // Config variables
+  m_master              = true;
   m_swath_width_desired = 25;
   m_pd_desired          = 0.9;
 
@@ -151,6 +152,12 @@ bool HazardMngr::OnStartUp()
     else if(param == "report_name") {
       value = stripQuotes(value);
       m_report_name = value;
+      handled = true;
+    }
+    else if(param == "is_master") {
+      if(value = "true") m_master=true;
+      else if(value = "false") m_master=false;
+      else continue
       handled = true;
     }
 
