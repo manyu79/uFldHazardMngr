@@ -38,6 +38,7 @@ HazardMngr::HazardMngr()
   m_master              = true;
   m_swath_width_desired = 25;
   m_pd_desired          = 0.9;
+  m_name                = "noname"
 
   // State Variables 
   m_sensor_config_requested = false;
@@ -370,7 +371,10 @@ void HazardMngr::syncToMaster()
 {
   string temp1 = m_hazard_set.getSpec(); 
   string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val="+temp1; 
+<<<<<<< HEAD
   cout<<temp2<<endl; 
+=======
+>>>>>>> 8cbbeaf0991812da2b71c3bc9c16b57b5ca7cf31
   Notify("NODE_MESSAGE_LOCAL",temp2); 
 }
 
