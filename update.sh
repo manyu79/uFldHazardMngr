@@ -16,7 +16,7 @@ git commit -a -m auto-commit
 git pull
 git push
 
-cd ~/moos-ivp$NAME/src/pHazardPath; 
+cd ~/moos-ivp-$NAME/src/pHazardPath; 
 git commit -a -m auto-commit
 git pull 
 git push
