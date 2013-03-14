@@ -38,7 +38,7 @@ HazardMngr::HazardMngr()
   m_master              = true;
   m_swath_width_desired = 25;
   m_pd_desired          = 0.9;
-  m_name                = "noname"
+  m_name                = "noname"; 
 
   // State Variables 
   m_sensor_config_requested = false;
