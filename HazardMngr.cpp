@@ -88,7 +88,7 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
       handleMailReportRequest();
     
     else if(key == "TIME_OUT"){
-      if(sval = "true"){
+      if(sval == "true"){
 	if (!m_master){
 	  syncToMaster(); 
 	}
