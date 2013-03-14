@@ -23,8 +23,8 @@
 #include <string>
 #include "MBUtils.h"
 #include "ColorParse.h"
-#include "HazardMgnr.h"
-#include "HazardMgnr_Info.h"
+#include "HazardMngr.h"
+#include "HazardMngr_Info.h"
 
 using namespace std;
 
@@ -55,10 +55,10 @@ int main(int argc, char *argv[])
     showHelpAndExit();
 
   cout << termColor("green");
-  cout << "uFldHazardMgnr launching as " << run_command << endl;
+  cout << "uFldHazardMngr launching as " << run_command << endl;
   cout << termColor() << endl;
 
-  HazardMgnr HazardMngr;
+  HazardMngr HazardMngr;
 
   HazardMngr.Run(run_command.c_str(), mission_file.c_str());
   
