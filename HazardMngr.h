@@ -55,6 +55,7 @@ class HazardMngr : public AppCastingMOOSApp
    void postHazardSetReport();
    
  private: // Configuration variables
+   bool        m_master;
    double      m_swath_width_desired;
    double      m_pd_desired;
    std::string m_report_name;

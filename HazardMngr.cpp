@@ -306,11 +306,13 @@ bool HazardMngr::handleMailDetectionReport(string str)
 void HazardMngr::handleMailReportRequest()
 {
   m_summary_reports++;
-
-  string summary_report = m_hazard_set.getSpec("final_report");
-  Notify("HAZARDSET_REPORT", summary_report);
+  if(m_master){
+    string summary_report = m_hazard_set.getSpec("final_report");
+    Notify("HAZARDSET_REPORT", summary_report);
+  }
+  else{
+  }
 }
-
 
 //------------------------------------------------------------
 // Procedure: buildReport()
@@ -338,8 +340,3 @@ bool HazardMngr::buildReport()
 
   return(true);
 }
-
-
-
-
-
