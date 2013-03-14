@@ -88,7 +88,6 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
       handleMailReportRequest();
     
     else if(key == "TIME_OUT"){
-<<<<<<< HEAD
       if(sval = "true"){
 	if (!m_master){
 	  syncToMaster(); 
@@ -96,15 +95,6 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
 	else
 	  sendReport(); 
       }
-=======
-      if (!m_master){
-	syncToMaster();
-	cout<<"execute syncToMaster()"<<endl;  
-      }
-      else
-	cout<<"execute sendReport()"<<endl;  
-	sendReport(); 
->>>>>>> c2e31154439292c77322b23c8b579a9cec15a767
     } 
     else if(key == "SLAVE_REPORT"){
       m_slave_report = sval; 
