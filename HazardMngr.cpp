@@ -89,14 +89,17 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
     
     else if(key == "TIME_OUT"){
       if (!m_master){
-	syncToMaster(); 
+	syncToMaster();
+	cout<<"execute syncToMaster()"<<endl;  
       }
       else
+	cout<<"execute sendReport()"<<endl;  
 	sendReport(); 
     } 
     else if(key == "SLAVE_REPORT"){
       m_slave_report = sval; 
       m_slave_report_received = true;
+      cout<<"slave report received"<<endl; 
     } 
     else 
       reportRunWarning("Unhandled Mail: " + key);
@@ -199,6 +202,8 @@ void HazardMngr::registerVariables()
   m_Comms.Register("UHZ_CONFIG_ACK", 0);
   m_Comms.Register("UHZ_OPTIONS_SUMMARY", 0);
   m_Comms.Register("HAZARDSET_REQUEST", 0);
+  m_Comms.Register("SLAVE_REPORT",0); 
+  m_Comms.Register("TIME_OUT",0); 
 }
 
 //---------------------------------------------------------
@@ -376,7 +381,7 @@ void HazardMngr::sendReport()
 {
   int start_time=MOOSTime(); 
   while((MOOSTime()-start_time)<45){
-    if(!m_slave_report_received){
+    if(m_slave_report_received){
       break; 
     }
   }
