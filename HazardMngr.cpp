@@ -329,7 +329,7 @@ bool HazardMngr::handleMailDetectionReport(string str)
 void HazardMngr::handleMailReportRequest()
 {
   m_summary_reports++;
-  if(m_master){
+  if(true){ //m_master
     string summary_report = m_hazard_set.getSpec("final_report");
     Notify("HAZARDSET_REPORT", summary_report);
   }
@@ -370,7 +370,7 @@ bool HazardMngr::buildReport()
 void HazardMngr::syncToMaster()
 {
   string temp1 = m_hazard_set.getSpec(); 
-  string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val="+temp1; 
+  string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val=\""+temp1+"\""; 
   cout<<temp2<<endl; 
   Notify("NODE_MESSAGE_LOCAL",temp2); 
 }
