@@ -88,6 +88,7 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
       handleMailReportRequest();
     
     else if(key == "TIME_OUT"){
+<<<<<<< HEAD
       if(sval = "true"){
 	if (!m_master){
 	  syncToMaster(); 
@@ -95,10 +96,20 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
 	else
 	  sendReport(); 
       }
+=======
+      if (!m_master){
+	syncToMaster();
+	cout<<"execute syncToMaster()"<<endl;  
+      }
+      else
+	cout<<"execute sendReport()"<<endl;  
+	sendReport(); 
+>>>>>>> c2e31154439292c77322b23c8b579a9cec15a767
     } 
     else if(key == "SLAVE_REPORT"){
       m_slave_report = sval; 
       m_slave_report_received = true;
+      cout<<"slave report received"<<endl; 
     } 
     else 
       reportRunWarning("Unhandled Mail: " + key);
@@ -201,6 +212,8 @@ void HazardMngr::registerVariables()
   m_Comms.Register("UHZ_CONFIG_ACK", 0);
   m_Comms.Register("UHZ_OPTIONS_SUMMARY", 0);
   m_Comms.Register("HAZARDSET_REQUEST", 0);
+  m_Comms.Register("SLAVE_REPORT",0); 
+  m_Comms.Register("TIME_OUT",0); 
 }
 
 //---------------------------------------------------------
