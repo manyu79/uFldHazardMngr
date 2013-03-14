@@ -25,6 +25,7 @@
 
 #include "MOOS/libMOOS/Thirdparty/AppCasting/AppCastingMOOSApp.h"
 #include "XYHazardSet.h"
+#include <string>
 
 class HazardMngr : public AppCastingMOOSApp
 {
@@ -48,6 +49,9 @@ class HazardMngr : public AppCastingMOOSApp
    bool handleMailDetectionReport(std::string);
    bool handleMailHazardReport(std::string) {return(true);};
    void handleMailReportRequest();
+   void syncToMaster(); 
+   void sendReport(); 
+   void parseIncomingReport(std::string); 
 
  protected: 
    void postSensorConfigRequest();
@@ -58,10 +62,13 @@ class HazardMngr : public AppCastingMOOSApp
    double      m_swath_width_desired;
    double      m_pd_desired;
    std::string m_report_name;
+   std::string m_name; 
 
  private: // State variables
    bool   m_sensor_config_requested;
    bool   m_sensor_config_set;
+   bool   m_master; 
+   bool   m_slave_report_received; 
 
    unsigned int m_sensor_config_reqs;
    unsigned int m_sensor_config_acks;
@@ -75,6 +82,8 @@ class HazardMngr : public AppCastingMOOSApp
    double m_pd_granted;
 
    XYHazardSet m_hazard_set;
+
+   std::string m_slave_report; 
 
 };
 

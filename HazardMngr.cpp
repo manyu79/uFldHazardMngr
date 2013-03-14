@@ -25,6 +25,7 @@
 #include "HazardMngr.h"
 #include "XYFormatUtilsHazard.h"
 #include "ACTable.h"
+#include <string>
 
 using namespace std;
 
@@ -85,7 +86,18 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
 
     else if(key == "HAZARDSET_REQUEST") 
       handleMailReportRequest();
-
+    
+    else if(key == "TIME_OUT"){
+      if (!m_master){
+	syncToMaster(); 
+      }
+      else
+	sendReport(); 
+    } 
+    else if(key == "SLAVE_REPORT"){
+      m_slave_report = sval; 
+      m_slave_report_received = true;
+    } 
     else 
       reportRunWarning("Unhandled Mail: " + key);
   }
@@ -148,16 +160,21 @@ bool HazardMngr::OnStartUp()
     else if(((param == "sensor_pd") || (param == "pd")) && isNumber(value)) {
       m_pd_desired = atof(value.c_str());
       handled = true;
-    }
+     }
     else if(param == "report_name") {
       value = stripQuotes(value);
       m_report_name = value;
       handled = true;
     }
     else if(param == "is_master") {
-      if(value = "true") m_master=true;
-      else if(value = "false") m_master=false;
-      else continue
+      if(value == "true") m_master=true;
+      else if(value == "false") m_master=false;
+      else continue; 
+      handled = true;
+    }
+    else if(param == "name") {
+      value = stripQuotes(value);
+      m_name = value;
       handled = true;
     }
 
@@ -339,6 +356,37 @@ bool HazardMngr::buildReport()
   return(true);
 }
 
+//---------------------------------------------------------------
+// Procedure: syncToMaster()
+
+void HazardMngr::syncToMaster()
+{
+  string temp1 = m_hazard_set.getSpec(); 
+  string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val="+temp1; 
+  Notify("NODE_REPORT_LOCAL",temp2); 
+}
+
+
+//--------------------------------------------------------------------
+//Procedure: sendReport()
+
+void HazardMngr::sendReport()
+{
+  int start_time=MOOSTime(); 
+  while((MOOSTime()-start_time)<45){
+    if(!m_slave_report_received){
+      parseIncomingReport(m_slave_report); 
+      break; 
+    }
+  }
+  handleMailReportRequest(); 
+}
+
+
+void HazardMngr::parseIncomingReport(string val){
+  cout<<"bite my shiny ass"<<endl; 
+  return; 
+}
 
 
 
