@@ -370,7 +370,8 @@ void HazardMngr::syncToMaster()
 {
   string temp1 = m_hazard_set.getSpec(); 
   string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val="+temp1; 
-  Notify("NODE_REPORT_LOCAL",temp2); 
+  cout<<temp2<<endl; 
+  Notify("NODE_MESSAGE_LOCAL",temp2); 
 }
 
 
